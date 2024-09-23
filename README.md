@@ -36,10 +36,10 @@ const data = new TransactionRecord(
 );
 
 fillTransactionRecord(data, "/path/to/store")
-  .then((base64) => {
+  .then(base64 => {
     fs.writeFile("/path/to/create/transactionRecord.pdf", base64, "base64");
   })
-  .catch((err) => console.error("Error at save pdf generate", err));
+  .catch(err => console.error("Error at save pdf generate", err));
 ```
 
 As you can see, the data will then be passed to a method that will handle filling and creating the new form. The path to store should contain all the branch forms empty and ready to fill. These will be copies to fill out.
@@ -104,7 +104,7 @@ As you can see, the data will then be passed to a method that will handle fillin
 ```ts
 import { writeFile } from "node:fs/promises";
 
-import { JwForm } from "../src/index";
+import { JwForm } from "@nikosoftware/jwform";
 import dataJson from "./data.json";
 
 (async () => {
@@ -118,7 +118,7 @@ import dataJson from "./data.json";
 
   const filled = await app.fillTerritoryRegistry({ data });
   await writeFile("/path/to/create/S-13-filled.pdf", filled);
-})().catch((error) => console.error(error));
+})().catch(error => console.error(error));
 ```
 
 ## Publisher Record Card
@@ -140,9 +140,9 @@ const publisher = () => {
   });
 
   fillPublisherRecordCard(data, "/home/nick/store", true)
-    .then((base64) => {
+    .then(base64 => {
       fs.writeFile("/home/nick/store/publisherRecord.pdf", base64, "base64");
     })
-    .catch((err) => console.error(`Error at save pdf generate ${err}\n`));
+    .catch(err => console.error(`Error at save pdf generate ${err}\n`));
 };
 ```

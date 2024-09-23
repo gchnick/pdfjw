@@ -1,8 +1,8 @@
 import { writeFile } from "node:fs/promises";
 
+import { JwForm } from "@/src/index";
 import { logger } from "@/src/modules/shared/domain/logger";
 
-import { JwForm } from "../src/index";
 import dataJson from "./data.json";
 
 (async () => {
@@ -15,4 +15,4 @@ import dataJson from "./data.json";
 
   const filled = await app.fillTerritoryRegistry({ data });
   await writeFile("/home/nick/store/S-13-filled.pdf", filled);
-})().catch((error) => logger.error(error));
+})().catch(error => logger.error(error));

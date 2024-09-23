@@ -1,1 +1,1 @@
-export { JwForm } from "./modules/jwform";
+export { JwForm } from "@/src/modules/jwform";

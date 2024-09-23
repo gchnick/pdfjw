@@ -1,14 +1,8 @@
----
-name: "Lint PR Title"
+name: 'Lint PR Title'
 
 on:
   pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - labeled
-      - unlabeled
+    types: [opened, edited, synchronize, reopened]
 
 permissions:
   pull-requests: write
@@ -21,7 +15,7 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v5
         id: lint_pr_title
         env:
-          GITHUB_TOKEN: ${{ secrets.MODERATOR_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           ignoreLabels: |
             bot

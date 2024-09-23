@@ -3,10 +3,14 @@ import path from "node:path";
 
 import * as CryptoJS from "crypto-js";
 
-import { FileNotFound, NoIntegrityForm } from "../form/domain/errors";
-import { InvalidArgumentError } from "../shared/domain/errors";
-import { FileName } from "../shared/domain/file-name";
-import { StringValueObject } from "../shared/domain/value-object/string-value-object";
+import {
+  FileNotFound,
+  NoIntegrityForm,
+} from "@/src/modules/form/domain/errors";
+import { InvalidArgumentError } from "@/src/modules/shared/domain/errors";
+import { FileName } from "@/src/modules/shared/domain/file-name";
+import { StringValueObject } from "@/src/modules/shared/domain/value-object/string-value-object";
+
 import { FolderStore } from "./folder-store";
 
 export const isBase64Valid =
@@ -45,6 +49,7 @@ export class Pdf extends StringValueObject {
   }
 
   ensureMD5IsCorrect(md5: string, formName: FileName) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const MD5 = CryptoJS.MD5(this.value).toString();
     if (MD5 !== md5) {
       throw NoIntegrityForm(`The form <${formName.value}> is invalid`);

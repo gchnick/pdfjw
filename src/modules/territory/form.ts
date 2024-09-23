@@ -1,4 +1,4 @@
-import type { Setting } from "../form/domain/types";
+import type { Setting } from "@/src/modules/form/domain/types";
 import type { Registry } from "./schema";
 import type {
   Column,
@@ -13,20 +13,21 @@ import type {
   Territory,
 } from "./types";
 
-import { Draw } from "../form/domain/draw";
-import { Form } from "../form/domain/form";
-import { FolderStore } from "../jwform/folder-store";
-import { Pdf } from "../jwform/pdf";
-import { toLocaleDateString } from "../shared/domain/date";
-import { FileName } from "../shared/domain/file-name";
-import { logger } from "../shared/domain/logger";
+import { Draw } from "@/src/modules/form/domain/draw";
+import { Form } from "@/src/modules/form/domain/form";
+import { FolderStore } from "@/src/modules/jwform/folder-store";
+import { Pdf } from "@/src/modules/jwform/pdf";
+import { toLocaleDateString } from "@/src/modules/shared/domain/date";
+import { FileName } from "@/src/modules/shared/domain/file-name";
+import { logger } from "@/src/modules/shared/domain/logger";
+
 import { LAYOUT } from "./layout";
 
 export class TerritoryRegistryForm extends Draw implements Form {
   static formName = FileName.fromValue("S-13.pdf");
   static md5 = "54fa1de2ac8bc7286e0e742db3d1b59b";
-  locale: Intl.LocalesArgument;
-  data: Registry;
+  readonly #locale: Intl.LocalesArgument;
+  readonly #data: Registry;
 
   constructor({
     folder,
@@ -46,8 +47,8 @@ export class TerritoryRegistryForm extends Draw implements Form {
         bufferEncode,
       }),
     );
-    this.data = data;
-    this.locale = locale;
+    this.#data = data;
+    this.#locale = locale;
     // pdf.ensureIsIntegrity(); TODO: Implement integrity verification with strategy pattrem
   }
 
@@ -55,7 +56,7 @@ export class TerritoryRegistryForm extends Draw implements Form {
     logger.info(`Filling ${TerritoryRegistryForm.formName.value} form...`);
 
     await this.createDocument();
-    for (const [key, value] of Object.entries(this.data)) {
+    for (const [key, value] of Object.entries(this.#data)) {
       if (key === "serviceYear" && typeof value === "number") {
         const setting = LAYOUT.serviceYear;
         await this.drawText(String(value), setting.point, setting.font);
@@ -79,7 +80,7 @@ export class TerritoryRegistryForm extends Draw implements Form {
 
       await this.drawTextWithSetting(String(t.number), setting.numberTerritory);
       await this.drawTextWithSetting(
-        toLocaleDateString(t.lastDateCompleted, this.locale),
+        toLocaleDateString(t.lastDateCompleted, this.#locale),
         setting.lastDateCompleted,
       );
 
@@ -98,12 +99,12 @@ export class TerritoryRegistryForm extends Draw implements Form {
       if (r !== undefined) {
         await this.drawTextWithSetting(r.assignedTo, setting.assignedTo);
         await this.drawTextWithSetting(
-          toLocaleDateString(r.dateAssigned, this.locale),
+          toLocaleDateString(r.dateAssigned, this.#locale),
           setting.dateAssigned,
         );
         r.dateCompleted &&
           (await this.drawTextWithSetting(
-            toLocaleDateString(r.dateCompleted, this.locale),
+            toLocaleDateString(r.dateCompleted, this.#locale),
             setting.dateCompleted,
           ));
       }

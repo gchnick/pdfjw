@@ -1,8 +1,8 @@
----
 name: 'PR Scope label'
 
 on:
   pull_request_target:
+    types: [opened, synchronize, reopened]
 
 jobs:
   labeler:
