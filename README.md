@@ -21,17 +21,17 @@ For example, to fill a **Transaction Record Form** should create an object as fo
 ```ts
 const date = new Date("2023-7-12");
 const worldwideWorkDonations = 0.53;
-const congragationExpenses = 10.12;
+const congregationExpenses = 10.12;
 const otherTransactions: OtherTransactions = [
-  { descripton: "Maintenance expense", amount: 124 },
-  { descripton: "Purchase of consumables for Hall", amount: 2523 },
-  { descripton: "Others expenses", amount: 52235.12 },
+  { description: "Maintenance expense", amount: 124 },
+  { description: "Purchase of consumables for Hall", amount: 2523 },
+  { description: "Others expenses", amount: 52235.12 },
 ];
 const data = new TransactionRecord(
   date,
   TransactionType.PAY,
   worldwideWorkDonations,
-  congragationExpenses,
+  congregationExpenses,
   otherTransactions,
 );
 

@@ -1,8 +1,7 @@
-import type { Mapper } from "@/src/modules/form/domain/types";
-
+import { Mapper } from "@/src/modules/form/domain/types";
 import { Aligned, Padding } from "@/src/modules/form/domain/types";
 
-export const mapper: Mapper = {
+export const mapper = {
   date: { point: { x: 85, y: 43 } },
   donation: { point: { x: 362, y: 43 } },
   pay: { point: { x: 178, y: 43 } },
@@ -29,4 +28,4 @@ export const mapper: Mapper = {
     point: { x: 45, y: 161 },
     aligned: Aligned.RIGHT,
   },
-};
+} as Mapper;
