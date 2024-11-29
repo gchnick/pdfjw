@@ -22,7 +22,7 @@ jobs:
           npm_token: ${{ secrets.NPM_TOKEN }}
       - name: Create changelog 📝
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v5
+        uses: TriPSs/conventional-changelog-action@v6
       - name: Create major and minor tags 📍
         if: ${{ steps.changelog.outputs.tag }}
         run: |
